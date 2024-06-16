@@ -1,16 +1,40 @@
 // pages/index.js
-import { useState } from "react";
-import TodoList from "../Components/TodoList";
+import { useState, useEffect } from "react";
+import TodoList from "../components/TodoList";
 import TodoInput from "../components/TodoInput";
 
 export default function Home() {
   const [todos, setTodos] = useState([]);
 
-  const addTodo = (todo) => {
-    setTodos([...todos, { text: todo, completed: false }]);
+  useEffect(() => {
+    const fetchTodos = async () => {
+      const response = await fetch("/api/todos");
+      const data = await response.json();
+      setTodos(data.data);
+    };
+
+    fetchTodos();
+  }, []);
+
+  const addTodo = async (todo) => {
+    const response = await fetch("/api/todos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text: todo, completed: false }),
+    });
+
+    const data = await response.json();
+    setTodos([...todos, data.data]);
   };
 
-  const removeTodo = (index) => {
+  const removeTodo = async (index) => {
+    const todoToRemove = todos[index];
+    await fetch(`/api/todos?id=${todoToRemove._id}`, {
+      method: "DELETE",
+    });
+
     const newTodos = todos.filter((_, i) => i !== index);
     setTodos(newTodos);
   };

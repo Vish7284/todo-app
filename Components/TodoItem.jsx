@@ -1,10 +1,10 @@
-// components/TodoItem.js
-const TodoItem = ({ index, todo, removeTodo }) => {
+const TodoItem = ({ todo, removeTodo }) => {
   return (
     <li className="flex items-center justify-between p-4 mb-2 bg-white rounded-md shadow-md">
       <input
         type="checkbox"
-        onChange={() => removeTodo(index)}
+        checked={todo.completed}
+        onChange={() => removeTodo(todo)}
         className="mr-4"
       />
       <span
@@ -12,10 +12,10 @@ const TodoItem = ({ index, todo, removeTodo }) => {
           todo.completed ? "line-through text-gray-500" : ""
         }`}
       >
-        {todo.text}
+        {todo.text} 
       </span>
       <button
-        onClick={() => removeTodo(index)}
+        onClick={() => removeTodo(todo)}
         className="ml-4 text-red-500 hover:text-red-600"
       >
         Delete

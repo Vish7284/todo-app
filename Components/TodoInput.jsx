@@ -4,13 +4,14 @@ import { useState } from "react";
 const TodoInput = ({ addTodo }) => {
   const [input, setInput] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (input.trim()) {
-      addTodo(input);
-      setInput("");
-    }
-  };
+ const handleSubmit = (e) => {
+   e.preventDefault();
+   if (input.trim()) {
+     addTodo({ text: input, completed: false });
+     setInput("");
+   }
+ };
+
 
   return (
     <form onSubmit={handleSubmit} className="flex mb-6">
