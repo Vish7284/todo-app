@@ -7,7 +7,7 @@ const TodoInput = ({ addTodo }) => {
  const handleSubmit = (e) => {
    e.preventDefault();
    if (input.trim()) {
-     addTodo({ text: input, completed: false });
+     addTodo(input);
      setInput("");
    }
  };

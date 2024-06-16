@@ -1,15 +1,20 @@
+import React from "react";
 import TodoItem from "./TodoItem";
 
 const TodoList = ({ todos, removeTodo }) => {
   return (
     <ul className="w-full max-w-md">
-      {todos.map((todo) => (
-        <TodoItem
-          key={todo.id}
-          todo={todo} 
-          removeTodo={removeTodo}
-        />
-      ))}
+      {todos.map((todo, index) => {
+        const key = todo._id || index.toString(); 
+        return (
+          <TodoItem
+            key={key}
+            index={index}
+            todo={todo}
+            removeTodo={removeTodo}
+          />
+        );
+      })}
     </ul>
   );
 };
